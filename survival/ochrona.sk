@@ -1,0 +1,47 @@
+options:
+    protection_time: 180 #czas w sekundach
+    protection_actionbar: &8* &f&lOCHRONA: &3{TIME} &8* #actionbar z czasem do konca ochrony zmienna, {TIME} opisuje czas
+    protection_quit_stop: tak #czy ma usunac graczowi ochrone po wyjsciu z serwera
+
+on join:
+    if {protection::status::%player%} is not set:
+        set {protection::status::%player%} to "during"
+        set {protection::time::%player%} to {@protection_time}
+        set {_time} to rounded down {protection::time::%player%} / 60
+        set {_time2} to {protection::time::%player%} - 60*{_time}
+        set {_dur} to "%{_time}% minut %{_time2}% sekund"
+        send "&8» &aOtrzymujesz startową ochronę PVP przed innymi graczami na %{_dur}%!"
+    while player is online:
+        if {protection::status::%player%} is "during":
+            remove 1 from {protection::time::%player%}
+            set {_actionbar} to "{@protection_actionbar}"
+            set {_time} to rounded down {protection::time::%player%} / 60
+            set {_time2} to {protection::time::%player%} - 60*{_time}
+            replace all "{TIME}" with "%{_time}% minut %{_time2}% sekund" in {_actionbar}
+            send action bar "%{_actionbar}%" to player
+            if {protection::time::%player%} is 0:
+                set {protection::status::%player%} to false
+        wait 1 real seconds
+
+on quit:
+    if "{@protection_quit_stop}" is "tak":
+        if {protection::status::%player%} is "during":
+            set {protection::status::%player%} to false
+
+on damage of player:
+    if attacker is player:
+        if {protection::status::%victim%} is "during":
+            cancel event
+            send "&8» &cTen gracz posiada ochronę startową!" to attacker
+        if {protection::status::%attacker%} is "during":
+            send "&8» &cUderzyłeś innego gracza, twoja ochrona zostaje wyłączone!" to attacker
+            set {protection::status::%attacker%} to false
+
+command /anulujochrone [<text>]:
+    trigger:
+        if {protection::status::%player%} is not "during":
+            send "&8» &cNie masz ochrony startowej!"
+        else if {protection::status::%player%} is "during":
+            send "&8» &cTwoja podstawowa ochrona dostala zdeaktywowana"
+            set {protection::status::%player%} to false
+            stop

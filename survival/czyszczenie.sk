@@ -1,0 +1,22 @@
+
+command /cc:
+    description: Clear chat for all players
+    permission: cc.clear
+    trigger:
+        loop 300 times:
+            broadcast " "
+        broadcast "&8&m============&7[&C&lPrzy&b&lklad&e&lV2&7]&8&m============"
+        broadcast "&b&lCzat zostal wyczyszczony przez gracza: &c&l%player%!"
+        broadcast "&8&m============&7[&C&lPrzy&b&lklad&e&lV2&7]&8&m============"
+#!
+#! Longer version
+#!
+command /clearchat:
+    description: Clear chat for all players
+    permission: cc.clear
+    trigger:
+        loop 300 times:
+            broadcast " "
+        broadcast "&8&m============&7[&C&lPrzy&b&lklad&e&lV2&7]&8&m============"
+        broadcast "&b&lCzat zostal wyczyszczony przez gracza: &c%player%!"
+        broadcast "&8&m============&7[&C&lPrzy&b&lklad&e&lV2&7]&8&m============"

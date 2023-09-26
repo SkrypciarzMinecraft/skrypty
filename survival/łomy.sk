@@ -1,0 +1,115 @@
+variables:
+    {sejf::amount} = 0
+
+function giveSejf(p: player):
+    add 1 to {sejf::amount}
+    give 1 of chest named "&8✦ &6&lSEJF &8✦" with lore "&8✦ &7Właściciel: &e%{_p}%" and "&8✦ &7ID: &e&n%{sejf::amount}%" to {_p}
+
+on first join:
+    giveSejf(player)
+
+command /sejf [<text>]:
+    permission: sejf.usage
+    permission message: &8✦ &cNie masz dostepu do tej komendy!
+    trigger:
+        if arg-1 is not set:
+            send "&8✦ &cPodaj nick gracza!"
+            stop
+        set {_p} to arg-1 parsed as player
+        if {_p} is offline:
+            send "&8✦ &cPodany gracz jest offline!"
+            stop
+        giveSejf({_p})
+        send "&8✦ &aNadałeś sejf graczowi %{_p}%!"
+        send "&8✦ &aOtrzymałeś sejf od gracza %player%!" to {_p}
+
+command /lom [<text>]:
+    permission: sejf.usage
+    permission message: &8✦ &cNie masz dostepu do tej komendy!
+    trigger:
+        if arg-1 is not set:
+            send "&8✦ &cPodaj nick gracza!"
+            stop
+        set {_p} to arg-1 parsed as player
+        if {_p} is offline:
+            send "&8✦ &cPodany gracz jest offline!"
+            stop
+        give 1 of stick of unbreaking 1 named "&8✦ &5&lŁOM &8✦" with lore "&8✦ &7Za pomocą tego przedmiotu" and "   &7możesz otworzyć dowolny sejf!" to {_p}
+        send "&8✦ &aNadałeś łom graczowi %{_p}%"
+        send "&8✦ &aOtrzymałeś łom od gracza %player%" to {_p}
+
+on right click with chest:
+    if name of player's tool is "&8✦ &6&lSEJF &8✦":
+        cancel event
+        set {_owner} to uncoloured line 1 of lore of player's tool
+        replace all "✦ Właściciel: " with "" in {_owner}
+        if {_owner} is not "%player%":
+            send "&8✦ &cNie możesz otworzyć tego sejfu!"
+            stop
+        set {_id} to uncoloured line 2 of lore of player's tool
+        replace all "✦ ID: " with "" in {_id}
+        set {sejf::lastOpened::%player%} to {_id}
+        open chest inventory with 6 rows named "&8✦ &6&lSEJF: &e%{_id}%" to player
+        loop {sejf::items::%{_id}%::*}:
+            set slot loop-index parsed as number -1 of player's current inventory to loop-value
+
+on right click with stick:
+    if name of player's tool is "&8✦ &5&lŁOM &8✦":
+        cancel event
+        open chest inventory with 3 rows named "&8✦ &5&lŁOM &8✦" to player
+        set slot (integers between 0 and 26) of player's current inventory to black glass pane named " "
+        set slot 13 of player's current inventory to hopper named "&8✦ &6Miejsce na sejf!"
+
+on inventory close:
+    if name of player's current inventory contains "&8✦ &6&lSEJF: ":
+        clear {sejf::items::%{sejf::lastOpened::%player%}%::*}
+        loop 6 * 9 times:
+            if slot loop-value -1 of player's current inventory is not chest named "&8✦ &6&lSEJF &8✦":
+                add slot loop-value -1 of player's current inventory to {sejf::items::%{sejf::lastOpened::%player%}%::*}
+            else:
+                if player can hold slot loop-value -1 of player's current inventory:
+                    give slot loop-value -1 of player's current inventory to player
+                else:
+                    drop slot loop-value -1 of player's current inventory at player
+        clear {sejf::lastOpened::%player%}
+
+on inventory click:
+    if name of player's current inventory is "&8✦ &5&lŁOM &8✦":
+        if clicked inventory is not player's inventory:
+            if clicked slot is not 13:
+                cancel event
+                stop
+            if clicked slot is 13:
+                if inventory action is pickup all:
+                    if name of clicked slot is not "&8✦ &6&lSEJF &8✦":
+                        cancel event
+                        stop
+                    else:
+                        wait 1 ticks
+                        set clicked slot to hopper
+                        stop
+                else if inventory action is not swap with cursor:
+                    cancel event
+                    stop
+                if inventory action is swap with cursor:
+                    if player's cursor slot is not chest named "&8✦ &6&lSEJF &8✦":
+                        cancel event
+                        stop
+                    set {_owner} to uncoloured line 1 of lore of player's cursor slot
+                    replace all "✦ Właściciel: " with "" in {_owner}
+                    if {_owner} is "%player%":
+                        cancel event
+                        send "&8✦ &cNie możesz otworzyć własnego sejfu!"
+                        stop
+                    cancel event
+                    set line 1 of lore of player's cursor slot to "&8✦ &7Właściciel: &e%player%"
+                    set {_id} to uncoloured line 2 of lore of player's cursor slot
+                    replace all "✦ ID: " with "" in {_id}
+                    close player's inventory
+                    remove 1 of stick of unbreaking 1 named "&8✦ &5&lŁOM &8✦" from player
+                    send "&8✦ &aPomyślnie otworzyłeś sejf ID: %{_id}%!"
+                    stop
+    if name of player's current inventory contains "&8✦ &6&lSEJF: &e":
+        if clicked inventory is not player's inventory:
+            if player's cursor slot is chest named "&8✦ &6&lSEJF &8✦":
+                cancel event

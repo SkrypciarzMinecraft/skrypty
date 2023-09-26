@@ -1,0 +1,123 @@
+## Author: ciepla_woda
+## discord: nikto_russian
+
+every 2 minutes:
+    set {_a} to random integer from 0 to 3
+    if {_a} is 0:
+        send "&0&l&m――――――――――――&7[&6&lPrzy&e&lklad&7]&0&l&m――――――――――――" to all players
+        send "" to all players
+        send "&8» &bJesli zechcesz uzyskac pomoc, wpisz komende: /pomoc" to all players
+        send "" to all players
+        send "&0&l&m――――――――――――&7[&6&lPrzy&e&lklad&7]&0&l&m――――――――――――" to all players
+    if {_a} is 1:
+        send "&0&l&m――――――――――――&7[&6&lPrzy&e&lklad&7]&0&l&m――――――――――――" to all players
+        send "" to all players
+		send "" to all players
+        send "" to all players		
+        send "" to all players		
+        send "" to all players		
+	    send "" to all players	
+        send "" to all players		
+        send "&8» &6Pamietaj! &cCheatowanie &6na tym serwerze jest surowo &4&lKARANE&6&l." to all players
+        send "" to all players
+        send "                                                          " to all players
+    if {_a} is 2:
+        send "&0&l&m――――――――――――&7[&6&lPrzy&e&lklad&7]&0&l&m――――――――――――" to all players
+        send "" to all players
+        send "&8» &eGraj z rozwagą! Nie lam regulaminu serwera." to all players
+        send "" to all players
+        send "&0&l&m――――――――――――&7[&6&lPrzy&e&lklad&7]&0&l&m――――――――――――" to all players
+    if {_a} is 3:
+        send "&0&l&m――――――――――――&7[&6&lPrzy&e&lklad&7]&0&l&m――――――――――――" to all players
+        send "" to all players
+        send "&8» &aPamietaj! Badz mily dla innych graczy, jesli chcesz zeby oni byli mili w stosunku do ciebie :D" to all players
+        send "" to all players
+        send "&0&l&m――――――――――――&7[&6&lPrzy&e&lklad&7]&0&l&m――――――――――――" to all players
+
+command /pomoc:
+    trigger:
+        send "&0&l&m――――――――――――&7[&6&lPrzy&e&lklad&7]&0&l&m――――――――――――"
+        send ""
+        send "&8» &aTo jest przykladowa komenda."
+        send "&8» &aTo jest przykladowa komenda."
+        send "&8» &aTo jest przykladowa komenda."
+        send "&8» &aTo jest przykladowa komenda."
+        send "&8» &aTo jest przykladowa komenda."
+        send "&8» &aTo jest przykladowa komenda."
+        send "&8» &aTo jest przykladowa komenda."
+        send "&8» &aTo jest przykladowa komenda."
+        send "&8» &aTo jest przykladowa komenda."
+        send "&8» &aTo jest przykladowa komenda."
+        send "" 
+        send "&0&l&m――――――――――――&7[&6&lPrzy&e&lklad&7]&0&l&m――――――――――――"
+
+command /JRHelper:
+    trigger:
+        send "&0&l&m――――――――――――&7[&6&lPrzy&e&lklad&7]&0&l&m――――――――――――"
+        send "&8» &aTo jest przykladowa komenda."
+        send "&8» &aTo jest przykladowa komenda."
+        send "&8» &aTo jest przykladowa komenda."
+        send "&8» &aTo jest przykladowa komenda."
+        send "&8» &aTo jest przykladowa komenda."
+        send "&8» &aTo jest przykladowa komenda."
+        send "&8» &aTo jest przykladowa komenda."
+        send "&8» &aTo jest przykladowa komenda."
+        send "&8» &aTo jest przykladowa komenda."
+        send "&8» &aTo jest przykladowa komenda."
+        send "&0&l&m――――――――――――&7[&6&lPrzy&e&lklad&7]&0&l&m――――――――――――"
+
+command /przykladowakomenda:
+    trigger:
+        send "&8» &aTo jest przykladowa komenda."
+
+command /przykladowakomenda:
+    trigger:
+        send "&8» &aTo jest przykladowa komenda."
+
+command /przykladowakomenda:
+    trigger:
+        send "&8» &aTo jest przykladowa komenda."
+
+command /przykladowakomenda:
+    trigger:
+        send "&8» &aTo jest przykladowa komenda."
+
+command /rangi:
+    trigger:
+        send "&0&l&m――――――――――――&7[&6&lPrzy&e&lklad&7]&0&l&m――――――――――――"
+        send "&8» &f/swagger &8» &aTo jest przykladowa komenda."
+        send "&8» &f/sponsor &8» &aTo jest przykladowa komenda."
+        send "&8» &f/mvip &8» &aTo jest przykladowa komenda."
+        send "&8» &f/evip &8» &aTo jest przykladowa komenda."
+        send "&8» &f/svip &8» &aTo jest przykladowa komenda."
+        send "&8» &f/vip &8» &aTo jest przykladowa komenda."
+        send "&8» &f/gracz &8» &aTo jest przykladowa komenda."
+        send "&0&l&m――――――――――――&7[&6&lPrzy&e&lklad&7]&0&l&m――――――――――――"
+
+command /przykladowakomenda:
+    trigger:
+        send "&8» &aTo jest przykladowa komenda."
+
+command /przykladowakomenda:
+    trigger:
+        send "&8» &aTo jest przykladowa komenda."
+
+command /przykladowakomenda:
+    trigger:
+        send "&8» &aTo jest przykladowa komenda."
+
+command /przykladowakomenda:
+    trigger:
+        send "&8» &aTo jest przykladowa komenda."
+
+command /przykladowakomenda:
+    trigger:
+        send "&8» &aTo jest przykladowa komenda."
+
+command /przykladowakomenda:
+    trigger:
+        send "&8» &aTo jest przykladowa komenda."
+
+command /przykladowakomenda:
+    trigger:
+        send "&8» &aTo jest przykladowa komenda."

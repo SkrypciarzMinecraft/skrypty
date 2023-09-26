@@ -1,0 +1,56 @@
+options:
+    home_teleport_time: 5 #czas w sekundach jaki gracz musi przeczekac na teleportacje
+    home_max_without_perm: 1 #ile gracz bez permisji moze miec domow
+
+command /home [<text>]:
+    aliases: dom, domy
+    trigger:
+        open chest inventory with 3 rows named "&8» &3Twoje domy!" to player
+        loop 27 times:
+            set slot loop-number -1 of player's current inventory to black glass pane
+        loop 7 times:
+            set slot loop-number + 9 of player's current inventory to oak door named "&8» &5Dom %loop-value%" with lore "%nl%&8» &fKliknij &alewym&f, aby przeteleportowac sie do domu!%nl%&8» &fKliknij &cprawym&f, aby ustawic dom!"
+        loop 7 times:
+            if {home::%player%::%loop-value%} is set:
+                set slot loop-number + 18 of player's current inventory to red clay named "&8» &cUsun dom %loop-value%!"
+on inventory click:
+    if name of player's current inventory is "&8» &3Twoje domy!":
+        if clicked inventory is not player's inventory:
+            cancel event
+            if index of event-slot > 9:
+                if index of event-slot < 17:
+                    if "%click type%" is "right mouse button":
+                        if player doesn't have permission "home.multiple.homes":
+                            if index of event-slot -9 > {@home_max_without_perm}:
+                                send "&8» &cNie masz dostepu do ustawienia wiecej niz {@home_max_without_perm} domow!"
+                                stop
+                        set {home::%player%::%index of event-slot -9%} to location of player
+                        close player's inventory
+                        send "&8» &aUstawiono dom %index of event-slot -9%!"
+                    if "%click type%" is "left mouse button":
+                        if {home::%player%::%index of event-slot - 9%} is not set:
+                            send "&8» &cNie masz ustawionego domu!"
+                            stop
+                        set {_loc::%player%} to player's location
+                        close player's inventory
+                        send "&8» &eRozpoczynasz teleportacje do domu %index of event-slot - 9%!"
+                        if player doesn't have permission "home.bypass.teleport":
+                            loop {@home_teleport_time} times:
+                                if x-coordinate of player's location is not x-coordinate of {_loc::%player%}:
+                                    send "&8» &cRuszyles sie, teleportacja zostaje przerwana!"
+                                    stop
+                                if y-coordinate of player's location is not y-coordinate of {_loc::%player%}:
+                                    send "&8» &cRuszyles sie, teleportacja zostaje przerwana!"
+                                    stop
+                                if z-coordinate of player's location is not z-coordinate of {_loc::%player%}:
+                                    send "&8» &cRuszyles sie, teleportacja zostaje przerwana!"
+                                    stop
+                                wait 1 real seconds
+                        teleport player to {home::%player%::%index of event-slot - 9%}
+                        send "&8» &aZostales przeteleportowany do domu %index of event-slot - 9%!"
+            if index of event-slot > 18:
+                if index of event-slot < 26:
+                    if {home::%player%::%index of event-slot - 18%} is set:
+                        clear {home::%player%::%index of event-slot - 18%}
+                        send "&8» &cUsunales dom %index of event-slot - 18%!"
+                        close player's inventory
